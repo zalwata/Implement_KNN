@@ -4,9 +4,21 @@
 - Date        : 04/07/2022
 """
 
-#application driver
+#library
+import numpy as np
+from numpy.linalg import norm
 
-#function definition
+#function
+def distanceAlgorithmEuclidean(x, y):
+    distance = np.linalg.norm(x-y)
+    return distance
+
+#class
+class KNN:
+
+
+#application driver
+df = np.array([[1,2,3],[2,1,3],[3,2,1]])
 
 
 
