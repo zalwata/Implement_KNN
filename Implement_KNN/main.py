@@ -9,7 +9,9 @@ import numpy as np
 from numpy.linalg import norm
 
 #function
-
+def euclidean(a,b):
+    distance = np.linalg.norm(a-b)
+    return distance
 
 #class
 class KNN:
@@ -18,8 +20,10 @@ class KNN:
         self.k = k
         self.random_state = random_state
         self.labels_ = None
-
+        self.distance = euclidean
+        self.data = ''
     # YOUR ADDITIONAL CODE HERE
+
 
     def fit(self, features: np.ndarray, labels: np.ndarray) -> None:
         '''
