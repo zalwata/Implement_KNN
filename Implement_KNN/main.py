@@ -21,15 +21,22 @@ class KNN:
         self.random_state = random_state
         self.labels_ = None
         self.distance = euclidean
-        self.data = ''
-    # YOUR ADDITIONAL CODE HERE
-
+        self.df = ''
 
     def fit(self, features: np.ndarray, labels: np.ndarray) -> None:
-        '''
-        Create the KNN model (or not)
-        '''
-        # YOUR CODE HERE
+        try:
+            dataFrame = []
+            if  (len(features) == len(labels)):
+                featuresList = features.tolist()
+                labelsList = labels.tolist()
+
+                for i , j in zip(featuresList, labelsList):
+                    dataFrame.append((i,j))
+
+                self.df = list(dataFrame)
+        except:
+            print("error occurred in 'fit' function")
+
 
     def predict(self, features: np.ndarray) -> np.array:
         '''
