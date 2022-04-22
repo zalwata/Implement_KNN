@@ -14,6 +14,13 @@ def euclidean(a,b):
     distance = np.linalg.norm(a-b)
     return distance
 
+def split_train_test(data, test_ratio):
+    shuffled_indices = np.random.permutation(len(data))
+    test_set_size = int(len(data) * test_ratio)
+    test_indices = shuffled_indices[:test_set_size]
+    train_indices = shuffled_indices[test_set_size:]
+    return data.iloc[train_indices], data.iloc[test_indices]
+
 #class
 class KNN:
 
@@ -81,8 +88,11 @@ df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked'], axis = 1)
 dataTitles = list(df.columns)
 dataTitles[0],dataTitles[-1] = dataTitles[-1],dataTitles[0]
 df = df[dataTitles]
-print(df)
+#print(df)
 
+#split the data into train and test set
+train_set, test_set = split_train_test(df, 0.2)
+print(len(train_set), 'train instances and', len(test_set), 'test instances.')
 
 
 
