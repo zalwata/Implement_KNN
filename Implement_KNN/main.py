@@ -63,7 +63,21 @@ class KNN:
 
 #import csv file
 df = pd.read_csv('titanic.csv')
+#print(df)
+
+#cleaning data
+##checking null values in dataframe
+#print(df.isna().sum())
+
+##filling null values in 'Age' with median
+median = df['Age'].median()
+df['Age'] = df['Age'].fillna(median)
+
+##drop columns which does not provide enough correlation with target
+df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked'], axis = 1)
 print(df)
+
+
 
 
 
