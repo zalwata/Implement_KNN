@@ -39,15 +39,26 @@ class KNN:
 
 
     def predict(self, features: np.ndarray) -> np.array:
-        '''
-        Predict the labels for the input features given the
-        training instances.
-        '''
-    # YOUR CODE HERE
-
-
-
-
+        """
+        -pseudocode-
+        foreach t in test_x:
+            points = sort(nearest_points(t))
+            neighbours = get_top(k, points)
+            hyp = m(neighbours)
+            hypotheses.append(hyp)
+        :param features:
+        :return: hypotheses
+        """
+        dataDistances = {}
+        for dataPoint in self.df:
+            dataPoints = dataPoint[0]
+            dataDistance = self.distance(dataPoints, features)
+            dataDistances[dataDistance] = dataPoint
+        hypotheses = []
+        k_Points = sorted(dataDistances.keys())[:self.k]
+        for nearest_points in k_Points:
+            hypotheses.append(dataDistances[nearest_points][-1])
+        return hypotheses
 
 #application driver
 
