@@ -81,7 +81,7 @@ median = df['Age'].median()
 df['Age'] = df['Age'].fillna(median)
 
 ##drop columns which does not provide enough correlation with target
-df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked'], axis = 1)
+df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked'], axis=1)
 #print(df)
 
 ##switching column position of the target ('Survived') as the last column in the dataframe
@@ -92,7 +92,23 @@ df = df[dataTitles]
 
 #split the data into train and test set
 train_set, test_set = split_train_test(df, 0.2)
-print(len(train_set), 'train instances and', len(test_set), 'test instances.')
+#print(len(train_set), 'train instances and', len(test_set), 'test instances.')
+
+#train_x, train_y
+train_features = train_set.drop(columns = ['Survived'])
+test_features = test_set.drop(columns = ['Survived'])
+train_x = train_features.iloc[:, :-1].values
+test_x = test_features.iloc[:, :-1].values
+
+train_labels = train_set['Survived']
+test_labels = test_set['Survived']
+train_y = train_features.iloc[:, -1].values
+test_y = test_features.iloc[:, -1].values
+
+#applying same k value as sklearn implementation
+KNNAlgorithm = KNN(3)
+KNNAlgorithm.fit(train_x, train_y)
+
 
 
 
