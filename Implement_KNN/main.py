@@ -7,6 +7,7 @@
 #library
 import numpy as np
 from numpy.linalg import norm
+import pandas as pd
 
 #function
 def euclidean(a,b):
@@ -60,7 +61,11 @@ class KNN:
             hypotheses.append(dataDistances[nearest_points][-1])
         return hypotheses
 
-#application driver
+#import csv file
+df = pd.read_csv('titanic.csv')
+print(df)
+
+
 
 
 
