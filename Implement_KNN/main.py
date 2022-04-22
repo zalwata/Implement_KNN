@@ -75,7 +75,15 @@ df['Age'] = df['Age'].fillna(median)
 
 ##drop columns which does not provide enough correlation with target
 df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked'], axis = 1)
+#print(df)
+
+##switching column position of the target ('Survived') as the last column in the dataframe
+dataTitles = list(df.columns)
+dataTitles[0],dataTitles[-1] = dataTitles[-1],dataTitles[0]
+df = df[dataTitles]
 print(df)
+
+
 
 
 
