@@ -68,6 +68,24 @@ class KNN:
             hypotheses.append(dataDistances[nearest_points][-1])
         return hypotheses
 
+    def findNearestNeighbour(self, indexVal):
+        return max(set(self.predict(indexVal)), key=self.predict(indexVal).count)
+
+    def measureAccuracyScore(self, testSet = [], test_y = []):
+        score = 0
+        for indexVal in testSet:
+            indexNum = 0
+            hyp = self.findNearestNeighbour(indexVal)
+            if hyp == test_y[indexNum]:
+                score = score + 1
+            indexNum = indexNum + 1
+
+        if len(testSet) != 0:
+            scorePercent = (score/len(test_y))*100
+        return scorePercent
+
+
+
 #import csv file
 df = pd.read_csv('titanic.csv')
 #print(df)
@@ -81,7 +99,7 @@ median = df['Age'].median()
 df['Age'] = df['Age'].fillna(median)
 
 ##drop columns which does not provide enough correlation with target
-df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked'], axis=1)
+df = df.drop(['PassengerId', 'Name', 'Ticket', 'Cabin', 'Embarked','Sex'], axis=1)
 #print(df)
 
 ##switching column position of the target ('Survived') as the last column in the dataframe
@@ -109,26 +127,21 @@ test_y = test_features.iloc[:, -1].values
 KNNAlgorithm = KNN(3)
 KNNAlgorithm.fit(train_x, train_y)
 
-
-
-
-
-
-
-
-
-
-
-
-
+print("Prediction score: {}".format(KNNAlgorithm.measureAccuracyScore(test_x, test_y)), '%')
 
 """
 - Program Output
-
+1st five attempts: 
+    Prediction score: 85.39325842696628 %
+    Prediction score: 86.51685393258427 %
+    Prediction score: 87.07865168539325 %
+    Prediction score: 88.20224719101124 %
+    Prediction score: 85.95505617977528 %
 """
 
 """
 - Logic_Code_Output Issues
-
+    First five attempts were quite consistent. However, there were cases when the prediction was below 5%. 
+    I believe standardscaler might help with this problem? 
 """
 
